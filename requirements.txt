@@ -1,0 +1,20 @@
+# AI Workshop Dependencies
+# This file will be updated with required libraries
+
+# Web Frameworks
+streamlit>=1.23.1
+
+# AI/ML Libraries
+openai>=1.0.0
+langchain>=0.0.200
+
+# Azure AI
+azure-ai-textanalytics>=5.2.0
+azure-cognitiveservices-language-textanalytics>=0.2.0
+
+# Utilities
+python-dotenv>=1.0.0
+requests>=2.30.0
+
+# Additional Libraries
+magentic>=0.12.0

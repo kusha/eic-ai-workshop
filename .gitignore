@@ -129,6 +129,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.local
 .venv
 env/
 venv/
@@ -172,3 +173,21 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+
+# API keys and secrets
+api_keys.txt
+secrets.toml
+
+# OS specific
+.DS_Store
+Thumbs.db

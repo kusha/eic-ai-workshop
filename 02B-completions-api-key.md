@@ -1,101 +1,101 @@
-# Understanding Completion APIs and API Keys
+# Porozumění Completion API a API klíčům
 
-In this workshop, we'll be working with Large Language Models (LLMs) through their APIs. Let's understand what these APIs are and how to access them.
+V tomto workshopu budeme pracovat s Large Language Models (LLMs) prostřednictvím jejich API. Pojďme si vysvětlit, co jsou tyto API a jak k nim přistupovat.
 
-## What is a Completion API?
+## Co je Completion API?
 
-A completion API allows you to send a prompt to an AI model and get a generated response. The basic flow works like this:
+Completion API vám umožňuje poslat dotaz (prompt) do AI modelu a získat vygenerovanou odpověď. Základní proces funguje takto:
 
-1. You send a request containing:
-   - Your API key for authentication
-   - A prompt or message
-   - Optional parameters (temperature, max tokens, etc.)
+1. Odešlete požadavek obsahující:
+   - Váš API klíč pro autentizaci
+   - Prompt nebo zprávu
+   - Volitelné parametry (teplota, maximální počet tokenů atd.)
 
-2. The AI service processes your request
+2. AI služba zpracuje váš požadavek
 
-3. The service returns a response with the AI-generated text
+3. Služba vrátí odpověď s textem vygenerovaným umělou inteligencí
 
-## Using Shared API Keys
+## Používání sdílených API klíčů
 
-For this workshop, we'll provide you with a shared API key to access the Azure AI models. This approach is common in development and testing scenarios.
+Pro tento workshop vám poskytneme sdílený API klíč pro přístup k modelům Azure AI. Tento přístup je běžný ve vývojových a testovacích scénářích.
 
 ```python
-# Example: Using a shared API key
+# Příklad: Použití sdíleného API klíče
 import os
 from openai import AzureOpenAI
 
-# Using the shared API key
+# Použití sdíleného API klíče
 client = AzureOpenAI(
-    api_key="SHARED_KEY_WILL_BE_PROVIDED",  # We'll provide this during the workshop
+    api_key="SHARED_KEY_WILL_BE_PROVIDED",  # Tento klíč vám poskytneme během workshopu
     api_version="2023-12-01-preview",
-    azure_endpoint="https://workshop-endpoint.openai.azure.com/"  # Example endpoint
+    azure_endpoint="https://workshop-endpoint.openai.azure.com/"  # Příklad koncového bodu
 )
 
 response = client.chat.completions.create(
     model="gpt-35-turbo",
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain quantum computing in simple terms."}
+        {"role": "system", "content": "Jste nápomocný asistent."},
+        {"role": "user", "content": "Vysvětlete kvantové počítání jednoduchými slovy."}
     ]
 )
 
 print(response.choices[0].message.content)
 ```
 
-> ⚠️ **Important**: Never share your API keys publicly or commit them to source control. For this workshop, we're using a temporary shared key for educational purposes.
+> ⚠️ **Důležité**: Nikdy nesdílejte své API klíče veřejně a neukládejte je do správy zdrojového kódu. Pro tento workshop používáme dočasný sdílený klíč pro vzdělávací účely.
 
-## Getting Your Own API Keys
+## Získání vlastních API klíčů
 
-After the workshop, you might want to continue working with AI models. Here's how you can get your own API keys:
+Po workshopu možná budete chtít pokračovat v práci s AI modely. Zde je postup, jak získat vlastní API klíče:
 
 ### Azure OpenAI Service
 
-1. Create an Azure account (free tier available)
-2. Set up an Azure OpenAI resource in the Azure portal
-3. Go to "Keys and Endpoint" to find your API key
-4. Deploy models from the Azure OpenAI Studio
+1. Vytvořte si účet Azure (k dispozici je bezplatná úroveň)
+2. Nastavte zdroj Azure OpenAI v Azure portálu
+3. Přejděte do sekce "Keys and Endpoint" pro nalezení vašeho API klíče
+4. Nasaďte modely z Azure OpenAI Studio
 
-Learn more: [Azure OpenAI Service Documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
+Více informací: [Azure OpenAI Service Documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
 
 ### OpenAI API
 
-1. Create an account on [OpenAI.com](https://openai.com/)
-2. Go to [API Keys section](https://platform.openai.com/api-keys)
-3. Click "Create new secret key"
-4. Use this key with the OpenAI Python library
+1. Vytvořte si účet na [OpenAI.com](https://openai.com/)
+2. Přejděte do sekce [API Keys](https://platform.openai.com/api-keys)
+3. Klikněte na "Create new secret key"
+4. Použijte tento klíč s knihovnou OpenAI Python
 
 ```python
-# Example: Using OpenAI's API
+# Příklad: Použití OpenAI API
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="your_openai_api_key",  # Replace with your actual API key
+    api_key="your_openai_api_key",  # Nahraďte svým skutečným API klíčem
 )
 
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain quantum computing in simple terms."}
+        {"role": "system", "content": "Jste nápomocný asistent."},
+        {"role": "user", "content": "Vysvětlete kvantové počítání jednoduchými slovy."}
     ]
 )
 
 print(response.choices[0].message.content)
 ```
 
-### Other LLM API Providers
+### Další poskytovatelé LLM API
 
-Several other providers offer LLM APIs with free or affordable tiers:
+Několik dalších poskytovatelů nabízí LLM API s bezplatnými nebo cenově dostupnými úrovněmi:
 
 - **Anthropic Claude**: [Claude API](https://www.anthropic.com/product)
 - **Cohere**: [Cohere API](https://cohere.com/)
 - **Hugging Face**: [Inference API](https://huggingface.co/inference-api)
 
-## API Key Best Practices
+## Osvědčené postupy pro API klíče
 
-1. **Store securely**: Use environment variables or secret management tools
-2. **Set usage limits**: Prevent unexpected charges
-3. **Rotate regularly**: Change keys periodically for security
-4. **Monitor usage**: Track API calls and costs
+1. **Bezpečné ukládání**: Používejte proměnné prostředí nebo nástroje pro správu tajných klíčů
+2. **Nastavení limitů použití**: Prevence neočekávaných poplatků
+3. **Pravidelná rotace**: Pravidelně měňte klíče z bezpečnostních důvodů
+4. **Monitoring využití**: Sledujte volání API a náklady
 
-In the next section, we'll put this knowledge to work by creating our first AI-enabled application!
+V další části využijeme tyto znalosti k vytvoření naší první aplikace s umělou inteligencí!

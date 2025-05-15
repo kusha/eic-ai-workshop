@@ -1,108 +1,108 @@
-# Part 4: Prompt Engineering for Effective AI Interactions
+# Část 4: Prompt Engineering pro efektivní interakce s AI
 
-## Introduction
-In this section, we'll explore how to craft effective prompts for Large Language Models (LLMs), using our emoji translation CLI tool as a practical example. Good prompt engineering is crucial for getting the best results from AI models.
+## Úvod
+V této části prozkoumáme, jak vytvářet efektivní prompty pro Large Language Models (LLMs), přičemž využijeme náš nástroj pro překlad emoji v příkazové řádce jako praktický příklad. Dobrý prompt engineering je zásadní pro získání nejlepších výsledků z AI modelů.
 
-## Basic Principles of Prompt Engineering
+## Základní principy Prompt Engineeringu
 
-### 1. Be Specific and Clear
-- Use precise language and avoid ambiguity
-- Include all necessary context in the prompt
-- Example from our CLI tool:
+### 1. Buďte konkrétní a jasní
+- Používejte přesný jazyk a vyhýbejte se nejednoznačnosti
+- Zahrňte veškerý potřebný kontext v promptu
+- Příklad z našeho CLI nástroje:
 ```python
-"Convert the following story or message into a series of emojis that best represent its meaning, characters, emotions, and key events. Use 10-25 emojis:"
+"Převeď následující příběh nebo zprávu do série emoji, které nejlépe reprezentují jeho význam, postavy, emoce a klíčové události. Použij 10-25 emoji:"
 ```
 
-### 2. Structure Your Prompts
-- Break down complex tasks into clear components
-- Use a consistent format
-- Include constraints and requirements (like our emoji count limit)
+### 2. Strukturujte své prompty
+- Rozdělte komplexní úlohy na jasné komponenty
+- Používejte konzistentní formát
+- Zahrňte omezení a požadavky (jako je náš limit počtu emoji)
 
-### 3. Provide Examples (Few-Shot Learning)
-Consider enhancing our current prompt with examples:
+### 3. Poskytněte příklady (Few-Shot Learning)
+Zvažte vylepšení našeho současného promptu o příklady:
 ```python
 """
-Convert the following story into emojis (10-25):
-Example:
-Input: "A happy girl went to the beach on a sunny day and built a sandcastle"
-Output: 👧 😊 🏖️ ☀️ 🏰 
+Převeď následující příběh do emoji (10-25):
+Příklad:
+Vstup: "Šťastná dívka šla na pláž za slunečného dne a postavila hrad z písku"
+Výstup: 👧 😊 🏖️ ☀️ 🏰 
 
-Your text: {text}
+Váš text: {text}
 """
 ```
 
-## Practical Exercises
+## Praktická cvičení
 
-### Exercise 1: Prompt Variation
-Try modifying our base prompt to achieve different results:
+### Cvičení 1: Variace promptu
+Zkuste upravit náš základní prompt k dosažení různých výsledků:
 
-1. Original prompt:
+1. Původní prompt:
 ```python
-text_to_emojis("Convert this text to emojis")
+text_to_emojis("Převeď tento text na emoji")
 ```
 
-2. Enhanced prompt with more context:
+2. Vylepšený prompt s více kontextem:
 ```python
-text_to_emojis("Analyze the emotional tone and key elements of this text, then represent them with appropriate emojis")
+text_to_emojis("Analyzuj emoční tón a klíčové prvky tohoto textu, poté je znázorni vhodnými emoji")
 ```
 
-### Exercise 2: Adding Parameters
-Experiment with adding specific requirements:
-- Emotion focus
-- Story timeline
-- Character emphasis
+### Cvičení 2: Přidání parametrů
+Experimentujte s přidáním specifických požadavků:
+- Zaměření na emoce
+- Časová osa příběhu
+- Důraz na postavy
 
-## Tips for Our CLI Tool
+## Tipy pro náš CLI nástroj
 
-1. **Adjust Output Length**
-   - Modify the "10-25 emojis" constraint based on your needs
-   - Consider text length in relation to emoji count
+1. **Úprava délky výstupu**
+   - Upravte omezení "10-25 emoji" podle vašich potřeb
+   - Zvažte délku textu ve vztahu k počtu emoji
 
-2. **Enhance Context**
-   - Add specific instructions for handling different text types
-   - Include guidelines for maintaining story coherence
+2. **Vylepšení kontextu**
+   - Přidejte specifické instrukce pro zpracování různých typů textu
+   - Zahrňte pokyny pro zachování soudržnosti příběhu
 
-3. **Error Handling**
-   - Add validation instructions in the prompt
-   - Specify fallback behavior
+3. **Zpracování chyb**
+   - Přidejte validační instrukce do promptu
+   - Specifikujte chování pro nouzové situace
 
-## Common Pitfalls to Avoid
+## Běžné chyby, kterým se vyhnout
 
-1. **Overly Complex Prompts**
-   - Keep instructions clear and concise
-   - Avoid contradictory requirements
+1. **Příliš složité prompty**
+   - Udržujte instrukce jasné a stručné
+   - Vyhněte se protichůdným požadavkům
 
-2. **Lack of Specificity**
-   - Include clear parameters
-   - Define expected output format
+2. **Nedostatek specifičnosti**
+   - Zahrňte jasné parametry
+   - Definujte očekávaný formát výstupu
 
-3. **Missing Context**
-   - Provide necessary background information
-   - Specify the intended use case
+3. **Chybějící kontext**
+   - Poskytněte nezbytné informace o pozadí
+   - Specifikujte zamýšlený případ použití
 
-## Practice Exercise
+## Praktické cvičení
 
-Modify the prompt in our CLI tool to:
-1. Focus on emotional representation
-2. Maintain story chronology
-3. Add specific handling for different text genres
+Upravte prompt v našem CLI nástroji tak, aby:
+1. Zaměřil se na emocionální reprezentaci
+2. Zachoval chronologii příběhu
+3. Přidal specifické zpracování různých textových žánrů
 
 ```python
 @magentic.prompt("""
-Analyze the following text and create an emoji sequence that:
-1. Captures the main emotional journey (prioritize emotion-related emojis)
-2. Follows the chronological order of events
-3. Uses 10-25 emojis, separated by spaces
-4. Adapts style based on genre (story/news/conversation)
+Analyzuj následující text a vytvoř sekvenci emoji, která:
+1. Zachycuje hlavní emoční cestu (prioritizuj emoji související s emocemi)
+2. Sleduje chronologické pořadí událostí
+3. Používá 10-25 emoji, oddělených mezerami
+4. Přizpůsobuje styl podle žánru (příběh/zprávy/konverzace)
 
-Text to convert: {text}
+Text k převodu: {text}
 """, model=chat_model)
 ```
 
-## Next Steps
-- Experiment with different prompt structures
-- Test various text types and genres
-- Document which prompts work best for specific use cases
-- Consider implementing prompt templates for different scenarios
+## Další kroky
+- Experimentujte s různými strukturami promptů
+- Testujte různé typy a žánry textů
+- Dokumentujte, které prompty fungují nejlépe pro konkrétní případy použití
+- Zvažte implementaci šablon promptů pro různé scénáře
 
-Remember: Good prompt engineering is iterative. Test different approaches and refine based on results.
+Pamatujte: Dobrý prompt engineering je iterativní. Testujte různé přístupy a zdokonalujte je na základě výsledků.

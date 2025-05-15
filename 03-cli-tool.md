@@ -1,69 +1,149 @@
-# Building an Emoji Storyteller CLI Tool
+# Vytvoření nástroje Emoji Storyteller pro příkazovou řádku
 
-In this part of the workshop, we'll create a command-line tool that converts text stories into emoji sequences using AI. This practical example will demonstrate how to:
+V této části workshopu vytvoříme nástroj pro příkazovou řádku, který převádí textové příběhy do sekvencí emoji pomocí umělé inteligence. Tento praktický příklad ukáže, jak:
 
-1. Use the OpenAI API for text processing
-2. Create a simple CLI interface 
-3. Work with AI function calling using the magentic library
+1. Vytvořit jednoduché rozhraní pro příkazovou řádku
+2. Použít OpenAI API pro zpracování textu
+3. Pracovat s voláním funkcí AI pomocí knihovny magentic
 
-## Prerequisites
+## Předpoklady
 
-- OpenAI API key
-- Python 3.8 or newer
-- Basic knowledge of Python and command-line interfaces
+- OpenAI API klíč a Endpoint
+- Základní znalost Pythonu a rozhraní příkazové řádky
 
-## Setup
+## Porozumění kódu
 
-1. Make sure you have the required packages installed:
+Je vám poskytnut jednoduchý skelet konzolové aplikace v jazyce Python v souboru "cli.py". Otevřete tento soubor a prohlédněte si jeho obsah.
+Obsahuje hlavní funkci s jednoduchým příkazem print.
+Tuto aplikaci můžete spustit zadáním `python cli.py` do konzole.
+Pokud vše funguje správně, měli byste vidět obsah příkazu print na obrazovce.
 
-```bash
-pip install magentic openai python-dotenv
+### 1. Přidání argumentů příkazové řádky
+
+Nyní, když program nedělá nic užitečného, chceme s ním umět komunikovat pomocí předávání argumentů příkazové řádky.
+Chceme mít 1 argument nazvaný "text", který bude obsahovat náš vstupní text, který později převedeme na sekvenci emoji.
+K tomu musíme nejprve přidat příkaz import pro standardní knihovnu Pythonu "argparse", přímo na začátek souboru, takto:
+```python
+import argparse
 ```
 
-2. Create a `.env` file in your project directory with your OpenAI API key:
-
+Poté můžeme do hlavní funkce přidat kód pro zpracování argumentů příkazového řádku a načtení textu, který chceme převést:
+```python
+    parser = argparse.ArgumentParser(description="Convert a story or message to emojis")
+    parser.add_argument("text", nargs="*", help="The text to convert to emojis")
+    args = parser.parse_args()
+    text_to_convert = " ".join(args.text)
+    print("The requested text to convert is:",text_to_convert)
 ```
-OPENAI_API_KEY=your_api_key_here
-```
 
-## Understanding the Code
+Zkuste program spustit znovu, ale tentokrát můžete poskytnout vlastní text, například:
+`python cli.py "I would like to convert this text"`
 
-Let's break down the key components of our Emoji Storyteller:
+### 2. Vytvoření funkcí pro volání
+Protože chceme, aby náš program byl přehledný a dobře strukturovaný,
+definujeme funkce pro převod textu na emoji a emoji zpět na text.
+Zpočátku nebudeme k implementaci této funkcionality používat AI, ale pouze
+poskytneme ukázkovou odpověď přímo z kódu, abychom mohli tyto
+funkce integrovat a používat v našich hlavních funkcích.
 
-### 1. Using Magentic for AI Function Calling
-
-The [magentic](https://github.com/jackmpcollins/magentic) library simplifies interactions with AI models, particularly for function calling. It uses decorators to automatically handle the API calls:
+Pojďme definovat následující funkce, které budeme používat (v kódu nad hlavní funkcí):
 
 ```python
-@magentic.prompt("Convert the following story or message into a series of emojis that best represent its meaning, characters, emotions, and key events. Use 5-15 emojis:\n{text}")
 def text_to_emojis(text: str) -> List[str]:
+    """Convert text to a list of emojis"""
+    return "😊🚀🎉🧠🐺"
+
+def format_emoji_output(emojis: List[str]) -> str:
+    return " ".join(emojis)
+
+def emojis_to_text(text: str) -> List[str]:
+    return "The story converted from emojis"
+```
+
+a přidejme tento kód do naší hlavní funkce pro použití našich definovaných funkcí:
+```python
+    emojis = text_to_emojis(text_to_convert)
+    formatted_output = format_emoji_output(emojis)
+    
+    print("✨ Emoji translation:")
+    print(formatted_output)
+    
+    reverted_message = emojis_to_text(formatted_output)
+    
+    print("✨ Reverted message:")
+    print("".join(reverted_message))
+```
+
+Nyní můžete zkusit spustit aplikaci stejným způsobem jako v kroku 1 a měli byste vidět, jak jsou zprávy "převedeny".
+
+### 3. Vytvoření souboru .env
+Pro vytvoření souboru `.env` postupujte podle těchto kroků:
+
+1. Najděte soubor `.env.example` v adresáři projektu. Tento soubor obsahuje šablonu pro proměnné prostředí potřebné pro aplikaci.
+
+2. Vytvořte kopii souboru `.env.example` a přejmenujte ji na `.env`. Můžete to udělat pomocí příkazové řádky nebo průzkumníka souborů. Například v terminálu můžete spustit:
+```bash
+cp .env.example .env
+```
+
+3. Otevřete nově vytvořený soubor `.env` v textovém editoru a vyplňte požadované hodnoty. Použijte API klíč a Endpoint z předchozího cvičení. Soubor by měl vypadat takto:
+```
+OPENAI_API_KEY=your_api_key_here
+OPENAI_API_ENDPOINT=your_endpoint_here
+OPENAI_MODEL=your_model_name_here
+```
+
+4. Uložte soubor `.env`. Aplikace nyní bude schopna načíst tyto hodnoty při spuštění.
+
+### 4. Použití Azure AI k transformaci
+
+Nejprve musíme načíst Endpoint a API klíč z prostředí do proměnných.
+Budou použity hodnoty definované v souboru .env:
+```python
+# Load API key and endpoint from environment variables
+api_key = os.getenv("OPENAI_API_KEY")
+endpoint = os.getenv("OPENAI_API_ENDPOINT")
+model = os.getenv("OPENAI_MODEL")
+```
+
+Poté musíme inicializovat model takto:
+```python
+# Set up the OpenAI chat model with API key, endpoint and model
+chat_model = OpenaiChatModel(
+    model=model,
+    api_key=api_key,
+    base_url=endpoint,
+    api_type="azure"
+)
+```
+
+Poslední věc, musíme aktualizovat naše funkce, aby skutečně používaly AI model místo napevno zakódovaných odpovědí:
+```python
+# Use the model in the decorator
+@magentic.prompt("Convert the following story or message into a series of emojis:\n{text}", model=chat_model)
+def text_to_emojis(text: str) -> List[str]:
+    """Convert text to a list of emojis"""
+    pass
+
+def format_emoji_output(emojis: List[str]) -> str:
+    """Format the emoji list for display"""
+    return " ".join(emojis)
+
+@magentic.prompt("The following emojis represents a story or a message :\n{text}, find out what the story is and write it down", model=chat_model)
+def emojis_to_text(text: str) -> List[str]:
     """Convert text to a list of emojis"""
     pass
 ```
 
-This decorator transforms our function into an AI-powered one. We don't need to implement the function body - magentic handles sending the text to OpenAI and parsing the response.
+## Spuštění nástroje
 
-### 2. Building the CLI Interface
-
-We use `argparse` to create a user-friendly command-line interface:
-
-```python
-parser = argparse.ArgumentParser(description="Convert a story or message to emojis")
-parser.add_argument("text", nargs="+", help="The text to convert to emojis")
-parser.add_argument("--verbose", "-v", action="store_true", help="Show original text alongside emojis")
-```
-
-This allows users to input their text directly as arguments and offers a verbose mode to see both the original text and emoji translation.
-
-## Running the Tool
-
-After creating the `cli.py` file, you can run it like this:
+Po vytvoření souboru `cli.py` ho můžete spustit takto:
 
 ```bash
 python cli.py "Once upon a time, a brave knight rescued a princess from a dragon"
 ```
 
-Example output:
+Příklad výstupu:
 ```
 🔄 Converting your story to emojis...
 
@@ -71,39 +151,27 @@ Example output:
 👑 🏰 🧙‍♂️ 🐉 🔥 🤴 ⚔️ 👸 🛡️ 🐎 🌈
 ```
 
-With verbose mode:
-```bash
-python cli.py -v "Once upon a time, a brave knight rescued a princess from a dragon"
-```
+## Přizpůsobení chování AI
 
-## Customizing the AI Behavior
-
-You can modify the prompt in the decorator to change how the emojis are generated:
+Můžete upravit prompt v dekorátoru, abyste změnili způsob generování emoji:
 
 ```python
 @magentic.prompt("Convert the following text into exactly 5 humorous emojis:\n{text}")
 ```
 
-## How It Works Behind the Scenes
+## Jak to funguje v zákulisí
 
-1. Your text is sent to OpenAI's API with instructions to convert it to emojis
-2. The API processes your text and generates appropriate emojis
-3. Magentic parses the response and returns it as a Python list
-4. The CLI formats and displays the emojis to the user
+1. Váš text je odeslán do API OpenAI s pokyny pro převod na emoji
+2. API zpracuje váš text a vygeneruje vhodné emoji
+3. Magentic analyzuje odpověď a vrátí ji jako Python seznam
+4. CLI formátuje a zobrazuje emoji uživateli
 
-## Common Issues and Troubleshooting
+## Časté problémy a řešení potíží
 
-- **API Key Issues**: Ensure your API key is correctly set in the `.env` file
-- **Rate Limiting**: OpenAI has rate limits - if you get errors, try again after a few minutes
-- **Model Availability**: Different models may produce different results or have different costs
+- **Problémy s API klíčem**: Ujistěte se, že váš API klíč je správně nastaven v souboru `.env`
+- **Omezení rychlosti**: OpenAI má omezení rychlosti - pokud se vyskytnou chyby, zkuste to znovu po několika minutách
+- **Dostupnost modelu**: Různé modely mohou produkovat různé výsledky nebo mít různé náklady
 
-## Exercise: Enhancing the Emoji Storyteller
+## Další kroky
 
-Try adding these features to your tool:
-1. Add a `--count` option to specify the number of emojis to generate
-2. Add a `--emotion` flag to set the overall tone (happy, sad, excited)
-3. Create a `--format` option that allows outputting as JSON or a simple string
-
-## Next Steps
-
-In the next section, we'll take this CLI tool and turn it into a web application that anyone can use!
+V další části vezmeme tento CLI nástroj a přeměníme ho na webovou aplikaci, kterou může používat kdokoli!

@@ -1,88 +1,73 @@
-# Workshop Step 02A: Setting Up Azure AI Resources
+# Workshop Krok 02A: Nastavení Azure AI zdrojů
 
-In this step, we'll set up an Azure AI (specifically Azure OpenAI) resource and deploy a ChatGPT model. You'll obtain an API key that will be used in future coding exercises.
+V tomto kroku nastavíme zdroj Azure AI (konkrétně Azure OpenAI) a nasadíme model ChatGPT. Získáte API klíč, který bude použit v budoucích programovacích cvičeních.
 
-## Prerequisites
+## Předpoklady
 
-- An Azure account with an active subscription
-  - If you don't have an Azure account, [sign up for free](https://azure.microsoft.com/en-us/free/)
-  - Note: Azure OpenAI requires subscription approval. If your instructor hasn't provided access, you'll use a shared API key.
+- Azure účet s aktivním předplatným
+  - Tento účet vám poskytnou lektoři
 
-## Option A: Setting Up Your Own Azure OpenAI Resource
+## Možnost A: Nastavení vlastního Azure OpenAI zdroje
 
-### 1. Create an Azure OpenAI Resource
+### 1. Vytvoření Azure OpenAI zdroje
 
-1. Sign in to the [Azure Portal](https://portal.azure.com)
-2. Click on "Create a resource"
-3. Search for "Azure OpenAI" and select it
-4. Click "Create"
-5. Fill in the required details:
-   - **Subscription**: Select your Azure subscription
-   - **Resource Group**: Create a new one or use an existing group
-   - **Region**: Select a region where Azure OpenAI is available (e.g., East US)
-   - **Name**: Give your resource a unique name
-   - **Pricing Tier**: Select "Standard S0"
-6. Click "Review + create" and then "Create"
-7. Wait for the deployment to complete (this may take a few minutes)
+1. Přihlaste se do [Azure Portal](https://portal.azure.com)
+2. Klikněte na "Create a resource"
+3. Vyhledejte "Azure OpenAI" a vyberte jej
+4. Klikněte na "Create"
+5. Vyplňte požadované údaje:
+   - **Subscription**: Vyberte vaše předplatné Azure
+   - **Resource Group**: Vytvořte novou skupinu s názvem `rg-ai-workshop-2025`
+   - **Region**: Vyberte region, kde je Azure OpenAI dostupné (např. East US)
+   - **Name**: Název zdroje musí být globálně jedinečný, použijte `azure-ai-workshop2025-<alias>`
+   - **Pricing Tier**: Vyberte "Standard S0"
+6. Klikněte na "Review + create" a poté na "Create"
+7. Počkejte na dokončení nasazení (může to trvat několik minut)
 
-### 2. Access Azure OpenAI Studio
+### 2. Přístup k portálu Azure AI Foundry
 
-1. Once your resource is deployed, click "Go to resource"
-2. In the left menu, click on "Azure OpenAI Studio" or navigate directly to [Azure OpenAI Studio](https://oai.azure.com/)
-3. Select your subscription and resource
+1. Jakmile je váš zdroj nasazen, klikněte na "Go to resource"
+2. V levém menu klikněte na "Go to Azure AI Foundry portal" nebo přejděte přímo na [Azure AI Foundry](https://ai.azure.com/)
+3. Vyberte vaše předplatné a zdroj
 
-### 3. Deploy a ChatGPT Model
+### 3. Nasaďte model ChatGPT
 
-1. In Azure OpenAI Studio, click on "Deployments" in the left menu
-2. Click "+ Create new deployment"
-3. Select a model:
-   - For ChatGPT-like functionality: choose "gpt-35-turbo" (or the latest available version)
-   - Model version: Select the default recommended version
-4. Give your deployment a name (e.g., "chat-completion")
-5. Click "Create"
+1. Na portálu Azure AI Foundry klikněte v levém menu na "Model catalog"
+2. Najděte "gpt-4.1-mini" a klikněte na něj
+3. Vyberte tlačítko "Deploy" a "Deploy to selected resource"
 
-### 4. Obtain the API Key and Endpoint
+### 4. Získání API klíče a koncového bodu
 
-1. Return to your Azure OpenAI resource in the Azure Portal
-2. In the left menu, click on "Keys and Endpoint"
-3. Copy either "KEY 1" or "KEY 2" - this is your API key
-4. Also copy the "Endpoint" URL
-5. Save these securely - you'll need them for the coding exercises
+1. Po nasazení by vás portál měl přesměrovat na stránku s informacemi o nasazeném modelu
+2. V záložce "Endpoint" byste měli vidět "Target URI" a "Key", oba budete potřebovat v dalších krocích
+3. "Target URI" představuje jedinečné internetové umístění vašeho nasazeného modelu
+4. "Key" je tajný klíč používaný k ověření vaší aplikace pro použití modelu
 
-### 5. Test Your Model (Optional)
+### 5. Otestujte váš model (volitelné)
 
-1. In Azure OpenAI Studio, click on "Chat" in the left menu
-2. Ensure your model deployment is selected
-3. Try sending a message to test the model's response
+1. Na portálu Azure AI Foundry klikněte na "Chat" v levém menu (pod záložkou "Playgrounds")
+2. Ujistěte se, že je vybrán váš model "gpt-4.1-mini"
+3. Zkuste poslat zprávu pro otestování odpovědi modelu
 
-## Option B: Using a Shared API Key
+## Možnost B: Použití sdíleného API klíče
 
-If you don't have access to create your own Azure OpenAI resource:
+1. Váš lektor vám poskytne sdílený API klíč a Endpoint
+2. Bezpečně uložte tyto údaje pro použití v nadcházejících cvičeních
 
-1. Your instructor will provide a shared API key and endpoint
-2. Securely store these credentials for use in upcoming exercises
-3. Note: Be considerate with API usage as resources are shared among participants
+## Klíčové koncepty pro budoucí sekce
 
-## Key Concepts for Future Sections
+- **API Key**: Tajný ověřovací token pro přístup ke službám Azure OpenAI
+- **Endpoint**: URL adresa, kam budou zasílány vaše API požadavky
+- **Model Deployment Name**: Název, který jste dali nasazenému modelu (např. "chat-completion")
+- **Completion vs. Chat Completion**: Dva API koncové body s různými formáty:
+  - Completion: Pro úlohy dokončování textu s jedním podnětem
+  - Chat Completion: Pro konverzační interakce s historií zpráv
 
-- **API Key**: Secret authentication token for accessing Azure OpenAI services
-- **Endpoint**: The URL where your API requests will be sent
-- **Model Deployment Name**: The name you gave to your deployed model (e.g., "chat-completion")
-- **Completion vs. Chat Completion**: Two API endpoints with different formats:
-  - Completion: For text completion tasks with a single prompt
-  - Chat Completion: For conversational interactions with message history
+## Další kroky
 
-## Next Steps
+Nyní, když máte svůj Azure OpenAI API klíč a Endpoint, jste připraveni přejít k programovacím cvičením, kde použijeme tyto údaje k vytvoření aplikací s umělou inteligencí.
 
-Now that you have your Azure OpenAI API key and endpoint, you're ready to move on to the coding exercises where we'll use these credentials to build AI-enabled applications.
-
-## Troubleshooting
-
-- **Cannot access Azure OpenAI**: Ensure your subscription has been approved for Azure OpenAI access
-- **Deployment fails**: Check that you've selected a supported region and model
-- **API errors**: Verify your API key, endpoint, and model deployment name are correct
-
-## Resources
+## Zdroje
 
 - [Azure OpenAI Documentation](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/)
 - [Azure OpenAI Models](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)

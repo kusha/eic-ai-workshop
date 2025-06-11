@@ -1,19 +1,20 @@
+# Zde přidávejte importy
 import argparse
-import os
 from typing import List
+from dotenv import load_dotenv
+import os
 import magentic
 from magentic.chat_model.openai_chat_model import OpenaiChatModel
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Načtení proměnných prostředí ze souboru .env
 load_dotenv(".env")
 
-# Load API key and endpoint from environment variables
+# Načtení API klíče a endpointu z proměnných prostředí
 api_key = os.getenv("OPENAI_API_KEY")
 endpoint = os.getenv("OPENAI_API_ENDPOINT")
 model = os.getenv("OPENAI_MODEL")
 
-# Set up the OpenAI chat model with API key, endpoint and model
+# Nastavení OpenAI chat modelu s API klíčem, endpointem a modelem
 chat_model = OpenaiChatModel(
     model=model,
     api_key=api_key,
@@ -21,40 +22,43 @@ chat_model = OpenaiChatModel(
     api_type="azure"
 )
 
-# Use the model in the decorator
-@magentic.prompt("Convert the following story or message into a series of emojis that best represent its meaning, characters, emotions, and key events. Use 3-5 emojis:\n{text}", model=chat_model)
+# Použití modelu v dekorátoru
+@magentic.prompt("Převeď následující příběh nebo zprávu do série emoji, které nejlépe vystihují jeho význam, postavy, emoce a klíčové události. Použij 3-5 emoji:\n{text}", model=chat_model)
 def text_to_emojis(text: str) -> List[str]:
-    """Convert text to a list of emojis"""
     pass
 
 def format_emoji_output(emojis: List[str]) -> str:
-    """Format the emoji list for display"""
     return " ".join(emojis)
 
-@magentic.prompt("The following emojis represents a story or a message :\n{text}, find out what the story is and write it down, you are given a lot of room for imagination", model=chat_model)
+@magentic.prompt("Následující emoji představují příběh nebo zprávu:\n{text}, zjisti, jaký je to příběh a napiš ho, máš velký prostor pro představivost", model=chat_model)
 def emojis_to_text(text: str) -> List[str]:
-    """Convert text to a list of emojis"""
     pass
 
 def main():
-    print("Welcome to the Emoji Converter!")
-    parser = argparse.ArgumentParser(description="Convert a story or message to emojis")
-    parser.add_argument("text", nargs="*", help="The text to convert to emojis")
+    print("Vítejte v převodníku Emoji!")
+    parser = argparse.ArgumentParser(description="Převeďte příběh nebo zprávu na emoji")
+    parser.add_argument("operation", choices=["to_emoji", "from_emoji"], help="Operace, kterou chcete provést: to_emoji nebo from_emoji")
+    parser.add_argument("text", nargs="*", help="Text, který chcete převést")
     args = parser.parse_args()
+    
     text_to_convert = " ".join(args.text)
-    print("The requested text to convert is:",text_to_convert)
+    print(f"Operace: {args.operation}")
+    print("Zadaný text k převodu je:", text_to_convert)
 
-    print("\n🔄 Converting your story to emojis...\n")
-    emojis = text_to_emojis(text_to_convert)
-    formatted_output = format_emoji_output(emojis)
+    if args.operation == "to_emoji":
+        print("\n🔄 Převádím váš příběh na emoji...\n")
+        emojis = text_to_emojis(text_to_convert)
+        formatted_output = format_emoji_output(emojis)
+        
+        print("✨ Překlad do emoji:")
+        print(formatted_output)
     
-    print("✨ Emoji translation:")
-    print(formatted_output)
-    
-    reverted_message = emojis_to_text(formatted_output)
-    
-    print("✨ Reverted message:")
-    print("".join(reverted_message))
+    elif args.operation == "from_emoji":
+        print("\n🔄 Převádím emoji zpět na text...\n")
+        reverted_message = emojis_to_text(text_to_convert)
+        
+        print("✨ Převedený text:")
+        print("".join(reverted_message))
 
 if __name__ == "__main__":
     main()

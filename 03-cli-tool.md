@@ -21,10 +21,10 @@ Pokud vše funguje správně, měli byste vidět obsah příkazu print na obrazo
 
 Skelet kódu najdete doplněnou o nápovědy ve formě komentářů, například takto:
 ```python
-    # Úkol 1: spracování argumentů příkazového řádku
+    # TODO 1: spracování argumentů příkazového řádku
 ```
 
-Tyto nápovědy jsou umístěny přesně tam, kde máte vložit kód z příslušného úkolu a nahradit daný komentář.
+Tyto nápovědy mají číslo odpovídajícího úkolu a ukazují místo, kam máte svůj kód vložit.
 
 ### 1. Přidání argumentů příkazové řádky
 
@@ -45,6 +45,7 @@ import argparse
 
 Poté můžeme do hlavní funkce přidat kód pro zpracování argumentů příkazového řádku a načtení operace a textu, který chceme převést:
 ```python
+    # spracování argumentů příkazového řádku
     parser = argparse.ArgumentParser(description="Převeďte příběh nebo zprávu na emoji")
     parser.add_argument("operation", choices=["to_emoji", "from_emoji"], help="Operace, kterou chcete provést: to_emoji nebo from_emoji")
     parser.add_argument("text", nargs="*", help="Text, který chcete převést")
@@ -67,17 +68,16 @@ Zpočátku nebudeme k implementaci této funkcionality používat AI, ale pouze
 poskytneme ukázkovou odpověď přímo z kódu, abychom mohli tyto
 funkce integrovat a používat v našich hlavních funkcích.
 
-Pojďme definovat následující funkce, které budeme používat (kód obsahuje nápovědy pro další úkol, protože je budeme později aktualizovat pro použití skutečné AI):
+Pojďme definovat následující funkce, které budeme používat:
 
 ```python
-# Úkol 4: použijte AI k vygenerování odpovědi
+# definice funkcí pro převod textu na emoji a zpět
 def text_to_emojis(text: str) -> List[str]:
     return "😊🚀🎉🧠🐺"
 
 def format_emoji_output(emojis: List[str]) -> str:
     return " ".join(emojis)
 
-# Úkol 4: použijte AI k vygenerování odpovědi
 def emojis_to_text(text: str) -> List[str]:
     return "Příběh převedený z emoji"
 ```
@@ -89,6 +89,7 @@ from typing import List
 
 a přidejme tento kód do naší hlavní funkce pro použití našich definovaných funkcí:
 ```python
+    # integrace použití funkcí pro převod textu na emoji a zpět
     if args.operation == "to_emoji":
         print("\n🔄 Převádím váš příběh na emoji...\n")
         emojis = text_to_emojis(text_to_convert)
@@ -158,7 +159,7 @@ chat_model = OpenaiChatModel(
 
 Poslední věc, musíme aktualizovat naše funkce, aby skutečně používaly AI model místo napevno zakódovaných odpovědí:
 ```python
-# Použití modelu v dekorátoru
+# definice funkcí pro převod textu na emoji a zpět
 @magentic.prompt("Převeď následující příběh nebo zprávu do série emoji, které nejlépe vystihují jeho význam, postavy, emoce a klíčové události. Použij 3-5 emoji:\n{text}", model=chat_model)
 def text_to_emojis(text: str) -> List[str]:
     pass

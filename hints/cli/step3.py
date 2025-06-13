@@ -1,10 +1,10 @@
-# Zde přidávejte importy
-import argparse
+# TODO: Zde přidávejte importy
 from typing import List
-from dotenv import load_dotenv
 import os
 import magentic
 from magentic.chat_model.openai_chat_model import OpenaiChatModel
+import argparse
+from dotenv import load_dotenv
 
 # Načtení proměnných prostředí ze souboru .env
 load_dotenv(".env")
@@ -22,7 +22,7 @@ chat_model = OpenaiChatModel(
     api_type="azure"
 )
 
-# Použití modelu v dekorátoru
+# definice funkcí pro převod textu na emoji a zpět
 @magentic.prompt("Převeď následující příběh nebo zprávu do série emoji, které nejlépe vystihují jeho význam, postavy, emoce a klíčové události. Použij 3-5 emoji:\n{text}", model=chat_model)
 def text_to_emojis(text: str) -> List[str]:
     pass
@@ -36,6 +36,7 @@ def emojis_to_text(text: str) -> List[str]:
 
 def main():
     print("Vítejte v převodníku Emoji!")
+    # spracování argumentů příkazového řádku
     parser = argparse.ArgumentParser(description="Převeďte příběh nebo zprávu na emoji")
     parser.add_argument("operation", choices=["to_emoji", "from_emoji"], help="Operace, kterou chcete provést: to_emoji nebo from_emoji")
     parser.add_argument("text", nargs="*", help="Text, který chcete převést")
@@ -45,6 +46,7 @@ def main():
     print(f"Operace: {args.operation}")
     print("Zadaný text k převodu je:", text_to_convert)
 
+    # integrace použití funkcí pro převod textu na emoji a zpět
     if args.operation == "to_emoji":
         print("\n🔄 Převádím váš příběh na emoji...\n")
         emojis = text_to_emojis(text_to_convert)

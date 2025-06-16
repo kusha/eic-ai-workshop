@@ -13,22 +13,17 @@ GitHub Codespaces je cloudové vývojové prostředí, které vám umožňuje pr
 
 ## Použití Codespaces pro tento workshop
 
-### Krok 1: Forkněte repozitář
-1. Přejděte na URL adresu workshopového repozitáře (poskytne váš instruktor)
-2. Klikněte na tlačítko "Fork" v pravém horním rohu
-3. Postupujte podle pokynů pro vytvoření vlastní kopie repozitáře
-
-### Krok 2: Spusťte Codespace
+### Krok 1: Spusťte Codespace
 1. Přejděte do svého forknutého repozitáře
 2. Klikněte na zelené tlačítko "Code"
 3. Vyberte záložku "Codespaces"
 4. Klikněte na "Create codespace on main"
 
-### Krok 3: Počkejte na dokončení nastavení
+### Krok 2: Počkejte na dokončení nastavení
 - Systém automaticky nakonfiguruje vaše Python prostředí a nainstaluje závislosti
 - Může to trvat několik minut
 
-### Krok 4: Ověřte své prostředí
+### Krok 3: Ověřte své prostředí
 Po načtení vašeho Codespace byste měli vidět:
 - VS Code běžící ve vašem prohlížeči
 - Dostupný terminál (přístupný přes Terminal > New Terminal)

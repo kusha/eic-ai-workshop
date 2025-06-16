@@ -5,7 +5,6 @@ V tomto kroku nastavíme zdroj Azure AI (konkrétně Azure OpenAI) a nasadíme m
 ## Předpoklady
 
 - Azure účet s aktivním předplatným
-  - Tento účet vám poskytnou lektoři
 
 ## Možnost A: Nastavení vlastního Azure OpenAI zdroje
 
@@ -19,7 +18,7 @@ V tomto kroku nastavíme zdroj Azure AI (konkrétně Azure OpenAI) a nasadíme m
    - **Subscription**: Vyberte vaše předplatné Azure
    - **Resource Group**: Vytvořte novou skupinu s názvem `rg-ai-workshop-2025`
    - **Region**: Vyberte region, kde je Azure OpenAI dostupné (např. East US)
-   - **Name**: Název zdroje musí být globálně jedinečný, použijte `azure-ai-workshop2025-<alias>`
+   - **Name**: Název zdroje musí být globálně jedinečný, použijte `azure-ai-workshop2025-<unikatní jméno>`
    - **Pricing Tier**: Vyberte "Standard S0"
 6. Klikněte na "Review + create" a poté na "Create"
 7. Počkejte na dokončení nasazení (může to trvat několik minut)
@@ -34,7 +33,7 @@ V tomto kroku nastavíme zdroj Azure AI (konkrétně Azure OpenAI) a nasadíme m
 
 1. Na portálu Azure AI Foundry klikněte v levém menu na "Model catalog"
 2. Najděte "gpt-4.1-mini" a klikněte na něj
-3. Vyberte tlačítko "Deploy" a "Deploy to selected resource"
+3. Vyberte tlačítko "Use this model" a "Deploy"
 
 ### 4. Získání API klíče a koncového bodu
 

@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 # Načtení proměnných prostředí ze souboru .env
 load_dotenv(".env")
 
-# TODO 4: Načtení API klíče a endpointu z proměnných prostředí
+# TODO 3: Načtení API klíče a endpointu z proměnných prostředí
 
-# TODO 4: Nastavení OpenAI chat modelu s API klíčem, endpointem a modelem
+# TODO 3: Nastavení OpenAI chat modelu s API klíčem, endpointem a modelem
 
 # definice funkcí pro převod textu na emoji a zpět
 def text_to_emojis(text: str) -> List[str]:

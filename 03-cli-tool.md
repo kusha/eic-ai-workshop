@@ -108,26 +108,7 @@ a přidejme tento kód do naší hlavní funkce pro použití našich definovan�
 
 Nyní můžete zkusit spustit aplikaci stejným způsobem jako v kroku 1 a měli byste vidět, jak jsou zprávy "převedeny".
 
-### 3. Vytvoření souboru .env
-Pro vytvoření souboru `.env` postupujte podle těchto kroků:
-
-1. Najděte soubor `.env.example` v adresáři projektu. Tento soubor obsahuje šablonu pro proměnné prostředí potřebné pro aplikaci.
-
-2. Vytvořte kopii souboru `.env.example` a přejmenujte ji na `.env`. Můžete to udělat pomocí příkazové řádky nebo průzkumníka souborů. Například v terminálu můžete spustit:
-```bash
-cp .env.example .env
-```
-
-3. Otevřete nově vytvořený soubor `.env` v textovém editoru a vyplňte požadované hodnoty. Použijte API klíč a Endpoint z předchozího cvičení. Soubor by měl vypadat takto:
-```
-OPENAI_API_KEY=your_api_key_here
-OPENAI_API_ENDPOINT=your_endpoint_here
-OPENAI_MODEL=your_model_name_here
-```
-
-4. Uložte soubor `.env`. Aplikace nyní bude schopna načíst tyto hodnoty při spuštění.
-
-### 4. Použití Azure AI k transformaci
+### 3. Použití Azure AI k transformaci
 
 Budeme používat několik dalších knihoven, proto je nejprve naimportujeme:
 

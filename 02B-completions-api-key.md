@@ -44,44 +44,17 @@ print(response.choices[0].message.content)
 
 > ⚠️ **Důležité**: Nikdy nesdílejte své API klíče veřejně a neukládejte je do správy zdrojového kódu. Pro tento workshop používáme dočasný sdílený klíč pro vzdělávací účely.
 
-## Získání vlastních API klíčů
+## Vytvoření souboru .env
 
-Po workshopu možná budete chtít pokračovat v práci s AI modely. Zde je postup, jak získat vlastní API klíče:
+V následujících cvičeních budeme vytvářet aplikaci, která bude využívat již nasazenou AI službu. Aby aplikace mohla tuto službu používat, potřebuje znát endpoint (adresu modelu) a API klíč (autentizační tajemství). Tyto údaje bude aplikace načítat ze souboru s názvem `.env`.
 
-### Azure OpenAI Service
+1. V prostředí Codespaces vytvořte nový soubor s názvem `.env`. Klikněte na `New File` a pojmenujte jej `.env`.
 
-1. Vytvořte si účet Azure (k dispozici je bezplatná úroveň)
-2. Nastavte zdroj Azure OpenAI v Azure portálu
-3. Přejděte do sekce "Keys and Endpoint" pro nalezení vašeho API klíče
-4. Nasaďte modely z Azure OpenAI Studio
+2. Otevřete právě vytvořený soubor a vložte do něj text, který vám poskytne lektor.
 
-Více informací: [Azure OpenAI Service Documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
+3. Uložte soubor `.env`. Aplikace nyní bude schopna tyto hodnoty při spuštění načíst.
 
-### OpenAI API
-
-1. Vytvořte si účet na [OpenAI.com](https://openai.com/)
-2. Přejděte do sekce [API Keys](https://platform.openai.com/api-keys)
-3. Klikněte na "Create new secret key"
-4. Použijte tento klíč s knihovnou OpenAI Python
-
-```python
-# Příklad: Použití OpenAI API
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="your_openai_api_key",  # Nahraďte svým skutečným API klíčem
-)
-
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "Jste nápomocný asistent."},
-        {"role": "user", "content": "Vysvětlete kvantové počítání jednoduchými slovy."}
-    ]
-)
-
-print(response.choices[0].message.content)
-```
+![Vytvoření .env souboru](images/env_add_file.png)
 
 ### Další poskytovatelé LLM API
 

@@ -104,6 +104,9 @@ if __name__ == "__main__":
     main()
 ```
 
+Po spuštění aplikace pomocí `streamlit run web.py` se zobrazí následující uživatelské rozhraní:
+
+![Uživatelské rozhraní aplikace](images/input.png)
 
 ### Znovupoužití kódu z CLI
 
@@ -132,6 +135,10 @@ Toto by mělo nahradit komentář "# vypiš emoji zde".
 # vypiš emoji
 st.markdown(f"<h2 style='text-align: center;'>{formatted_output}</h2>", unsafe_allow_html=True)
 ```
+
+Po implementaci těchto změn by měla aplikace fungovat a zobrazovat převod textu na emoji:
+
+![Funkční převod textu na emoji](images/example.png)
 
 ### Přidání záložky pro převod Emoji na text
 
@@ -183,3 +190,7 @@ Tento kód jde za definicí první záložky.
 ```
 
 Ujistěte se, že váš kód má správné odsazení, když jej přidáváte do hlavní funkce.
+
+Výsledná aplikace nyní podporuje obousměrný převod mezi textem a emoji:
+
+![Funkční převod emoji na text](images/to_text.png)

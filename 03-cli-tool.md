@@ -160,7 +160,7 @@ Nyní můžete zkusit program spustit znovu – tentokrát byste místo napevno 
 Můžete upravit prompt v dekorátoru, abyste změnili způsob generování emoji:
 
 ```python
-@magentic.prompt("Převeď následující text na přesně 5 vtipných emoji:\n{text}")
+@magentic.prompt("Převeď následující text na přesně 5 vtipných emoji:\n{text}", model=chat_model)
 ```
 
 ## Jak to funguje v zákulisí

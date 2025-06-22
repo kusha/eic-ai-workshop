@@ -7,7 +7,7 @@ import argparse
 from dotenv import load_dotenv
 
 # Načtení proměnných prostředí ze souboru .env
-load_dotenv(".env")
+load_dotenv(".env", override=True)
 
 # Načtení API klíče a endpointu z proměnných prostředí
 api_key = os.getenv("OPENAI_API_KEY")

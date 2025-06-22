@@ -4,7 +4,7 @@ import argparse
 from dotenv import load_dotenv
 
 # Načtení proměnných prostředí ze souboru .env
-load_dotenv(".env")
+load_dotenv(".env", override=True)
 
 # TODO 3: Načtení API klíče a endpointu z proměnných prostředí
 

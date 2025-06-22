@@ -17,4 +17,4 @@ python-dotenv>=1.0.0
 requests>=2.30.0
 
 # Additional Libraries
-magentic>=0.12.0
+magentic>=0.39.2

@@ -8,7 +8,7 @@ V této části workshopu vytvoříme nástroj pro příkazovou řádku, který 
 
 ## Předpoklady
 
-- OpenAI API klíč a Endpoint
+- OpenAI API klíč a Endpoint (soubor .env z předchozího úkolu)
 - Základní znalost Pythonu a rozhraní příkazové řádky
 
 ## Porozumění kódu
@@ -162,6 +162,20 @@ Můžete upravit prompt v dekorátoru, abyste změnili způsob generování emoj
 ```python
 @magentic.prompt("Převeď následující text na přesně 5 vtipných emoji:\n{text}", model=chat_model)
 ```
+Vyzkoušejte spuštění vaší aplikace s různými prompty a uživatelskými vstupy, například:
+
+```bash
+python cli.py to_emoji "bylo nebylo, žil byl drak a měl velký hlad"
+```
+
+Vyzkoušejte také zpětný překlad:
+
+```bash
+python cli.py from_emoji "☀️🌧️🐵🐽"
+```
+
+Pro více příkladů emoji můžete využít tuto stránku:
+[Emojipedia](https://emojipedia.org/)
 
 ## Jak to funguje v zákulisí
 
